@@ -1,5 +1,5 @@
 export const SETTINGS = {
-  name: 'Amanda',
+  name: 'Amélia',
   age: 24,
   distance: {
     min: 3,
