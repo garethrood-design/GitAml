@@ -7,7 +7,7 @@ import { SETTINGS } from './settings';
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [distance] = useState(() => Math.floor(Math.random() * (SETTINGS.distance.max - SETTINGS.distance.min + 1)) + SETTINGS.distance.min);
-  const [showIntro, setShowIntro] = useState(true);
+  const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
     if (window.innerWidth > 1200) {
@@ -26,33 +26,32 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const introTimer = setTimeout(() => {
-      setShowIntro(false);
-    }, 2000);
-
-    return () => clearTimeout(introTimer);
-  }, []);
-
-  useEffect(() => {
-    if (!showIntro && currentIndex < SETTINGS.fotos.length) {
+    if (currentIndex < SETTINGS.fotos.length) {
       const swipeTimer = setTimeout(() => {
         setCurrentIndex(prev => prev + 1);
-      }, 800);
+      }, 400);
 
       return () => clearTimeout(swipeTimer);
     }
 
     if (currentIndex >= SETTINGS.fotos.length) {
-      const redirectTimer = setTimeout(() => {
-        const randomNumero = NUMEROS[Math.floor(Math.random() * NUMEROS.length)];
-        const randomMessage = SETTINGS.messages[Math.floor(Math.random() * SETTINGS.messages.length)];
-        const text = encodeURIComponent(randomMessage);
-        window.location.href = `https://api.whatsapp.com/send?phone=${randomNumero}&text=${text}`;
+      const countdownInterval = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(countdownInterval);
+            const randomNumero = NUMEROS[Math.floor(Math.random() * NUMEROS.length)];
+            const randomMessage = SETTINGS.messages[Math.floor(Math.random() * SETTINGS.messages.length)];
+            const text = encodeURIComponent(randomMessage);
+            window.location.href = `https://api.whatsapp.com/send?phone=${randomNumero}&text=${text}`;
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
 
-      return () => clearTimeout(redirectTimer);
+      return () => clearInterval(countdownInterval);
     }
-  }, [currentIndex, showIntro]);
+  }, [currentIndex]);
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 relative overflow-hidden">
@@ -68,16 +67,6 @@ function App() {
 
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-rose-950/20 to-black/70"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(236,72,153,0.05),transparent_50%)]"></div>
-
-      {showIntro && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 animate-in fade-in duration-300">
-          <div className="bg-gradient-to-br from-rose-950/80 to-black border border-rose-500/30 px-8 py-5 rounded-2xl shadow-2xl shadow-rose-500/20 animate-in zoom-in duration-500">
-            <p className="text-rose-100 font-bold text-lg tracking-wide">
-              {SETTINGS.name} {SETTINGS.introMessage}
-            </p>
-          </div>
-        </div>
-      )}
 
       <div className="relative z-10 w-full max-w-md">
         <div className="mb-6 text-center">
@@ -154,14 +143,17 @@ function App() {
           ))}
         </div>
 
-        {currentIndex >= SETTINGS.fotos.length && (
-          <div className="mt-8 text-center animate-in fade-in duration-500">
-            <div className="bg-rose-950/60 backdrop-blur-md border border-rose-500/30 rounded-xl px-6 py-4 shadow-xl shadow-rose-500/20">
-              <p className="text-rose-100 font-semibold mb-1">{SETTINGS.redirectingText}</p>
-              <p className="text-rose-300/70 text-sm">{SETTINGS.connectingText} {SETTINGS.name}</p>
-            </div>
+        <div className="mt-8 text-center">
+          <div className="bg-rose-950/80 backdrop-blur-md border-2 border-pink-500/40 rounded-xl px-8 py-5 shadow-2xl shadow-pink-500/30">
+            <p className="text-rose-100 font-bold text-xl mb-3">{SETTINGS.redirectingText}</p>
+            {currentIndex >= SETTINGS.fotos.length && (
+              <div className="flex items-center justify-center gap-3">
+                <div className="text-5xl font-bold text-pink-400 animate-pulse">{countdown}</div>
+                <p className="text-rose-200 text-lg font-medium">segundos</p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
       <div className="absolute bottom-6 left-0 right-0 text-center z-10">
