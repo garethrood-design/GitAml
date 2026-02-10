@@ -7,7 +7,7 @@ import { SETTINGS } from './settings';
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [distance] = useState(() => Math.floor(Math.random() * (SETTINGS.distance.max - SETTINGS.distance.min + 1)) + SETTINGS.distance.min);
-  const [countdown, setCountdown] = useState(3);
+  const [countdown, setCountdown] = useState(6);
 
   useEffect(() => {
     if (window.innerWidth > 1200) {
@@ -29,7 +29,7 @@ function App() {
     if (currentIndex < SETTINGS.fotos.length) {
       const swipeTimer = setTimeout(() => {
         setCurrentIndex(prev => prev + 1);
-      }, 400);
+      }, 3000);
 
       return () => clearTimeout(swipeTimer);
     }
@@ -92,7 +92,7 @@ function App() {
             return (
               <div
                 key={index}
-                className={`absolute inset-0 transition-all duration-700 ease-out ${
+                className={`absolute inset-0 transition-all duration-[2500ms] ease-out ${
                   isPast ? 'pointer-events-none' : ''
                 }`}
                 style={{
