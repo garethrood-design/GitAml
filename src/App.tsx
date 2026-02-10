@@ -7,7 +7,7 @@ import { SETTINGS } from './settings';
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [distance] = useState(() => Math.floor(Math.random() * (SETTINGS.distance.max - SETTINGS.distance.min + 1)) + SETTINGS.distance.min);
-  const [countdown, setCountdown] = useState(6);
+  const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
     if (window.innerWidth > 1200) {
