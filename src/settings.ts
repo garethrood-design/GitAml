@@ -18,7 +18,7 @@ export const SETTINGS = {
     'Oi, vamos conversar?',
   ],
   fotos: [
-    'https://i.imgur.com/isWkRdK.jpeg',
-    'https://i.imgur.com/IWWqrxA.jpeg',
+    'https://i.imgur.com/Q9Icigq.png',
+    'https://i.imgur.com/uYG2duV.png',
   ],
 };
