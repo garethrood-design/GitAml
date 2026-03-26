@@ -1,5 +1,5 @@
 export const SETTINGS = {
-  name: 'Amanda',
+  name: 'Adryelli',
   age: 24,
   distance: {
     min: 3,
@@ -18,10 +18,10 @@ export const SETTINGS = {
     'Oi, vamos conversar?',
   ],
   fotos: [
-    'https://console-typebot-minio.kjufc9.easypanel.host/api/v1/buckets/hot-mj/objects/download?preview=true&prefix=little-1.jpg&version_id=null',
-    'https://console-typebot-minio.kjufc9.easypanel.host/api/v1/buckets/hot-mj/objects/download?preview=true&prefix=little-2.jpg&version_id=null',
-    'https://console-typebot-minio.kjufc9.easypanel.host/api/v1/buckets/hot-mj/objects/download?preview=true&prefix=little-3.jpg&version_id=null',
-    'https://console-typebot-minio.kjufc9.easypanel.host/api/v1/buckets/hot-mj/objects/download?preview=true&prefix=little-6.jpg&version_id=null',
-    'https://console-typebot-minio.kjufc9.easypanel.host/api/v1/buckets/hot-mj/objects/download?preview=true&prefix=little-5.jpg&version_id=null',
+    'https://i.imgur.com/uYG2duV.png',
+    'https://i.imgur.com/Q9Icigq.png',
+    'https://i.imgur.com/kE7MJmK.png',
+    'https://i.imgur.com/Q9Icigq.png',
+    'https://i.imgur.com/uYG2duV.png',
   ],
 };
